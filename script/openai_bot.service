@@ -1,0 +1,13 @@
+[Unit]
+Description=nodebb-openai-bot
+After=
+
+[Service]
+Type=forking
+ExecStart= /root/project/nodebb-openai-chatgpt/script/openai_bot.sh
+ExecStop=/bin/kill -s QUIT $MAINPID
+Restart=always
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target
