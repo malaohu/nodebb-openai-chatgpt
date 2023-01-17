@@ -90,12 +90,13 @@ class nodebb_gpt():
         while(1==1):
             ofile = open(fileName, "r")
             last_pid = ofile.read()    
-        
+            ofile.close()
+
             _last_pid = self.get_unread(last_pid=int(last_pid))
             if _last_pid > int(last_pid):
                 with open(fileName,'w',encoding='utf-8') as file:
                     file.write(str(_last_pid))
-            time.sleep(5)
+            time.sleep(15)
 
 
 if __name__ == '__main__':
