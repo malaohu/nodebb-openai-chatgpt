@@ -1,2 +1,3 @@
-cd /root/project/nodebb-openai-chatgpt
-python3 -m main
+#! /bin/bash
+cd /root/nodebb-openai-chatgpt
+python3 -m main 
