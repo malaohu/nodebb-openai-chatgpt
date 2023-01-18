@@ -93,7 +93,7 @@ class nodebb_gpt():
             ofile.close()
 
             _last_pid = self.get_unread(last_pid=int(last_pid))
-            if _last_pid > int(last_pid):
+            if _last_pid and last_pid and  _last_pid > int(last_pid):
                 with open(fileName,'w',encoding='utf-8') as file:
                     file.write(str(_last_pid))
             time.sleep(15)
