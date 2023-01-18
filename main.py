@@ -19,8 +19,8 @@ class nodebb_gpt():
 
     def get_unread(self, last_pid=0):
         notice_info = self.req_util("GET", self.api_route.get("notice"), None)
-        if not notice_info:
-            return
+        if not notice_info and notice_info.get("notifications") is None:
+            return None
             
         pid_list = [last_pid]
         for notic in notice_info.get("notifications"):
@@ -93,7 +93,7 @@ class nodebb_gpt():
             ofile.close()
 
             _last_pid = self.get_unread(last_pid=int(last_pid))
-            if _last_pid and last_pid and  _last_pid > int(last_pid):
+            if not  _last_pid and not last_pid and  _last_pid > int(last_pid):
                 with open(fileName,'w',encoding='utf-8') as file:
                     file.write(str(_last_pid))
             time.sleep(15)
