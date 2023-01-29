@@ -39,6 +39,7 @@ class nodebb_gpt():
                     time.sleep(5)
             else:
                 break
+        print (pid_list)
         return max(pid_list)
             
                 
@@ -92,8 +93,10 @@ class nodebb_gpt():
             last_pid = ofile.read()    
             ofile.close()
 
+            print ("last_pid", last_pid)
             _last_pid = self.get_unread(last_pid=int(last_pid))
-            if not  _last_pid and not last_pid and  _last_pid > int(last_pid):
+            print ("new_pid", _last_pid)
+            if _last_pid and last_pid and _last_pid > int(last_pid):
                 with open(fileName,'w',encoding='utf-8') as file:
                     file.write(str(_last_pid))
             time.sleep(15)
