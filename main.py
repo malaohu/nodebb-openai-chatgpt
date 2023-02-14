@@ -19,11 +19,11 @@ class nodebb_gpt():
 
     def get_unread(self, last_pid=0):
         notice_info = self.req_util("GET", self.api_route.get("notice"), None)
-        if not notice_info and notice_info.get("notifications") is None:
+        if not notice_info and not isinstance(notice_info.get("notifications"), list):
             return None
             
         pid_list = [last_pid]
-        for notic in notice_info.get("notifications"):
+        for notic in notice_info.get("notifications", []):
             pid_list.append(notic.get("pid"))
             if notic and notic.get("pid", -1) > last_pid and notic.get("bodyLong") and notic.get("bodyLong").find("@ChatGPT")>-1:
                 ask_str = notic.get("bodyLong")
@@ -34,7 +34,7 @@ class nodebb_gpt():
                         result = self.gtp(ask_str)
                     except Exception as e:
                         print (e)
-                        result = "哎呀, ChatGPT 出问题了, 站长快来修复一下~ @malaohu "
+                        result = "哎呀, OpenAI接口可能出问题了，请稍后再试！我这就PM站长~ @malaohu "
                     print (self.send_post(notic.get("tid"), notic.get("pid"), result, ask_str, notic.get("user").get("username")))
                     time.sleep(5)
             else:
