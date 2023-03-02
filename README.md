@@ -4,9 +4,6 @@ Python3 启动运行
 
 
 
-
-
-
 ## 依赖
 ```
 pip3 install -r requirements.txt
@@ -23,5 +20,5 @@ mv config.py.tmp  config.py
 
 ## 启动
 ```
-python3 -m main
+python3 -m main_turbo
 ```
