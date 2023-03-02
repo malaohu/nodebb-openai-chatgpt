@@ -22,3 +22,5 @@ mv config.py.tmp  config.py
 ```
 python3 -m main_turbo
 ```
+
+修改文件 last_pid  如果第一次使用直接修改成 0 
