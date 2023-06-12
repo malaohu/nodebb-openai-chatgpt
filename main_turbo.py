@@ -1,4 +1,4 @@
-mport requests
+import requests
 import json
 import openai
 import uuid
@@ -19,7 +19,7 @@ class nodebb_gpt():
 
     def get_unread(self, last_pid=0):
         notice_info = self.req_util("GET", self.api_route.get("notice"), None)
-        if not notice_info and not isinstance(notice_info.get("notifications"), list):
+        if not notice_info or not isinstance(notice_info.get("notifications"), list):
             return None
 
         pid_list = [last_pid]
@@ -28,7 +28,7 @@ class nodebb_gpt():
             if notic and notic.get("pid", -1) > last_pid and notic.get("bodyLong") and notic.get("bodyLong").find("@ChatGPT") > -1:
                 ask_str = notic.get("bodyLong")
 
-                if ask_str.find("@ChatGPT") > -1:
+                if ask_str.find("@ChatGPT") > -1 or ask_str.find("@CHATGPT")> -1 :
                     try:
                         result = self.gtp(self.format(ask_str))
                     except Exception as e:
@@ -44,7 +44,7 @@ class nodebb_gpt():
 
     def format(self, content):
         lines = content.split('\n')
-        stack = []
+        stack = [{"role": "system", "content": "我是JIKE机器人AI,基于OpenAI GPT-4语言模型, 服务于JIKE.info 社区。帖子中@我就可以啦！"}]
         users = {}
 
         for i in range(0,len(lines)):
@@ -58,11 +58,7 @@ class nodebb_gpt():
                 users[str(count_quote)] = []
 
             users[str(count_quote)].append(line.lstrip('> '))
-            print (line)
-            print (users)
-
-
-        print (users)
+  
         for key in sorted(users.keys(), reverse=True):
             role = users.get(key)[0]
             if key == "0":
@@ -135,4 +131,3 @@ class nodebb_gpt():
 
 if __name__ == '__main__':
     nodebb_gpt().doit()
-
