@@ -1,3 +1,6 @@
+
+# 基于 Nodebb 插件实现调用Azure OpenAI https://github.com/malaohu/nodebb-plugin-azure-openai
+
 # nodebb openai bot
 
 Python3 启动运行
